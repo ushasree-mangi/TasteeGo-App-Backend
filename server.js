@@ -5,6 +5,7 @@ const { getAllFoodItems , getFoodItem} = require('./controllers/foodController')
 const user =require("./models/User")
 const cart=require("./models/Cart")
 const jsonWebToken=require('jsonwebtoken')
+const cors = require('cors');
 
 const secretKey = process.env.SECRET_KEY;
 
@@ -14,11 +15,20 @@ const app = express();
 connectDB();
 
 // Middleware to parse JSON
-app.use(express.json());
+app.use(express.json()); 
+
+// CORS configuration to allow all origins and HTTP methods
+app.use(cors({
+  origin: '*',          // Allow all origins
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allow all HTTP methods
+  allowedHeaders: '*',  // Allow all headers
+}));
 
 // Routes
 
 //Register API
+
+
 
 app.post("/register",async(req,res)=>{ 
   try{ 
