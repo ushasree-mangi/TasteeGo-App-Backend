@@ -162,8 +162,9 @@ app.get('/cartItems',  authenticateToken,async(req,res)=>{
     
   try{
       const {userId} =req.user
-      const {items} = await cart.findOne({userId})
-      res.status(200).json({cartItems:items})
+      const {cartItems} = await cart.findOne({userId}).populate('items.foodItemId')
+      .exec();
+      res.status(200).json({cartItems})
 
   }
   catch(error){
